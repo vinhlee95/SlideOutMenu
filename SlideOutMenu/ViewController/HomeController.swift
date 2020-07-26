@@ -31,16 +31,18 @@ class HomeController: UITableViewController {
     
     @objc func handleOpen() {
         let menuWidth = view.frame.width * 3/4
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
-            // Final position of the menu view after animating
-            self.menuViewController.view.transform = CGAffineTransform(translationX: menuWidth, y: 0)
-        }, completion: nil)
+        animate(transform: CGAffineTransform(translationX: menuWidth, y: 0))
     }
     
     @objc func handleHide() {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        animate(transform: .identity)
+    }
+    
+    fileprivate func animate(transform: CGAffineTransform) {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
             // Final position of the menu view after animating
-            self.menuViewController.view.transform = .identity
+            self.menuViewController.view.transform = transform
+            self.view.transform = transform
         }, completion: nil)
     }
     
