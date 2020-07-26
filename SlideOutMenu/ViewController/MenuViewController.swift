@@ -15,7 +15,6 @@ class MenuViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
-        view.frame = CGRect(x: 0, y: 0, width: view.frame.width * 3/4, height: view.frame.height)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

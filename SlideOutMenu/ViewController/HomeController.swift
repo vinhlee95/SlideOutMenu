@@ -31,14 +31,24 @@ class HomeController: UITableViewController {
     @objc func handleOpen() {
         let keyWindow = UIApplication.shared.keyWindow
         keyWindow?.addSubview(menuViewController.view)
+        
+        let menuWidth = view.frame.width * 3/4
+        // Initial position of menu view
+        menuViewController.view.frame = CGRect(x: -menuWidth, y: 0, width: menuWidth, height: view.frame.height)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+            // Final position of the menu view after animating
+            self.menuViewController.view.transform = CGAffineTransform(translationX: menuWidth, y: 0)
+        }, completion: nil)
+        
         addChild(menuViewController)
     }
     
     @objc func handleHide() {
-        // Remove menuView from HomeView
-        menuViewController.view.removeFromSuperview()
-        // Remove child menuViewController from parent HomeController
-        menuViewController.removeFromParent()
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            // Final position of the menu view after animating
+            self.menuViewController.view.transform = .identity
+        }, completion: nil)
     }
     
     fileprivate func setupNavigationItems() {
