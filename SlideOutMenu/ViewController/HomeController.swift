@@ -17,6 +17,7 @@ class HomeController: UITableViewController {
         super.viewDidLoad()
         setupNavigationItems()
         setupMenuController()
+        setupPanGesture()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,8 +30,8 @@ class HomeController: UITableViewController {
         return cell
     }
     
+    let menuWidth: CGFloat = 300
     @objc func handleOpen() {
-        let menuWidth = view.frame.width * 3/4
         animate(transform: CGAffineTransform(translationX: menuWidth, y: 0))
     }
     
@@ -38,11 +39,38 @@ class HomeController: UITableViewController {
         animate(transform: .identity)
     }
     
+    @objc func handlePanGesture(sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        var x = translation.x
+        x = min(menuWidth, x)
+        x = max(0, x)
+        if sender.state == .changed {
+            handlePanChanged(transform: CGAffineTransform(translationX: x, y: 0))
+        } else if sender.state == .ended {
+            handlePanEnded(translationX: translation.x)
+        }
+    }
+    
+    fileprivate func handlePanChanged(transform: CGAffineTransform) {
+        menuViewController.view.transform = transform
+        navigationController?.view.transform = transform
+    }
+    
+    fileprivate func handlePanEnded(translationX: CGFloat) {
+        print("Distance: \(translationX)")
+        if translationX >= menuWidth/2 {
+            handleOpen()
+        } else {
+            handleHide()
+        }
+    }
+    
     fileprivate func animate(transform: CGAffineTransform) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
             // Final position of the menu view after animating
             self.menuViewController.view.transform = transform
-            self.view.transform = transform
+//            self.view.transform = transform
+            self.navigationController?.view.transform = transform
         }, completion: nil)
     }
     
@@ -56,6 +84,10 @@ class HomeController: UITableViewController {
         let keyWindow = UIApplication.shared.keyWindow
         keyWindow?.addSubview(menuViewController.view)
         addChild(menuViewController)
+    }
+    
+    fileprivate func setupPanGesture() {
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture)))
     }
 }
 
