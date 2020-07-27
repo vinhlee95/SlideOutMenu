@@ -68,10 +68,19 @@ class HomeController: UITableViewController {
     }
     
     fileprivate func handlePanEnded(translation: CGPoint) {
-        if translation.x >= menuWidth/2 {
-            handleOpen()
+        // Opening from close state
+        if !isMenuOpen {
+            if translation.x >= menuWidth/2 {
+               handleOpen()
+           } else {
+               handleHide()
+           }
         } else {
-            handleHide()
+            if abs(translation.x) <= menuWidth/5 {
+                handleOpen()
+            } else {
+                handleHide()
+            }
         }
     }
     
