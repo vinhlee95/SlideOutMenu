@@ -30,35 +30,45 @@ class HomeController: UITableViewController {
         return cell
     }
     
-    let menuWidth: CGFloat = 300
     @objc func handleOpen() {
+        isMenuOpen = true
         animate(transform: CGAffineTransform(translationX: menuWidth, y: 0))
     }
     
     @objc func handleHide() {
+        isMenuOpen = false
         animate(transform: .identity)
     }
     
     @objc func handlePanGesture(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
         var x = translation.x
+        // If menu is open and we swipe in backward direction
+        // x value is < 0 so it causes the menu to collapse imminently without
+        // any animation (x is reset to 0 due to x=max(0,x)
+        if isMenuOpen {
+            x += menuWidth
+        }
+        // Prevent from swiping to value that is over menu width
         x = min(menuWidth, x)
+        // Prevent from swiping in right-left direction
         x = max(0, x)
         if sender.state == .changed {
             handlePanChanged(transform: CGAffineTransform(translationX: x, y: 0))
         } else if sender.state == .ended {
-            handlePanEnded(translationX: translation.x)
+            handlePanEnded(translation: translation)
         }
     }
     
+    fileprivate let menuWidth: CGFloat = 300
+    fileprivate var isMenuOpen = false
     fileprivate func handlePanChanged(transform: CGAffineTransform) {
         menuViewController.view.transform = transform
         navigationController?.view.transform = transform
     }
     
-    fileprivate func handlePanEnded(translationX: CGFloat) {
-        print("Distance: \(translationX)")
-        if translationX >= menuWidth/2 {
+    fileprivate func handlePanEnded(translation: CGPoint) {
+        if translation.x >= menuWidth/2 {
             handleOpen()
         } else {
             handleHide()
