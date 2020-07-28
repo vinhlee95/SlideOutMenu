@@ -42,6 +42,7 @@ class HomeController: UITableViewController {
     
     @objc func handlePanGesture(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
+        let velocity = sender.velocity(in: view)
         var x = translation.x
         // If menu is open and we swipe in backward direction
         // x value is < 0 so it causes the menu to collapse imminently without
@@ -56,26 +57,38 @@ class HomeController: UITableViewController {
         if sender.state == .changed {
             handlePanChanged(transform: CGAffineTransform(translationX: x, y: 0))
         } else if sender.state == .ended {
-            handlePanEnded(translation: translation)
+            handlePanEnded(translation: translation, velocity: velocity)
         }
     }
     
     fileprivate let menuWidth: CGFloat = 300
+    fileprivate let velocityOpenThreshold: CGFloat = 500
+    fileprivate let velocityCloseThreshold: CGFloat = 600
     fileprivate var isMenuOpen = false
     fileprivate func handlePanChanged(transform: CGAffineTransform) {
         menuViewController.view.transform = transform
         navigationController?.view.transform = transform
     }
     
-    fileprivate func handlePanEnded(translation: CGPoint) {
+    fileprivate func handlePanEnded(translation: CGPoint, velocity: CGPoint) {
         // Opening from close state
         if !isMenuOpen {
+            if velocity.x >= velocityOpenThreshold {
+                handleOpen()
+                return
+            }
+            
             if translation.x >= menuWidth/2 {
                handleOpen()
            } else {
                handleHide()
            }
         } else {
+            if(abs(velocity.x) >= velocityCloseThreshold) {
+                handleHide()
+                return
+            }
+            
             if abs(translation.x) <= menuWidth/5 {
                 handleOpen()
             } else {
