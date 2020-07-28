@@ -18,6 +18,7 @@ class HomeController: UITableViewController {
         setupNavigationItems()
         setupMenuController()
         setupPanGesture()
+        setupOverlayView()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,6 +57,7 @@ class HomeController: UITableViewController {
         x = max(0, x)
         if sender.state == .changed {
             handlePanChanged(transform: CGAffineTransform(translationX: x, y: 0))
+            overlayView.alpha = x / menuWidth
         } else if sender.state == .ended {
             handlePanEnded(translation: translation, velocity: velocity)
         }
@@ -65,9 +67,12 @@ class HomeController: UITableViewController {
     fileprivate let velocityOpenThreshold: CGFloat = 500
     fileprivate let velocityCloseThreshold: CGFloat = 600
     fileprivate var isMenuOpen = false
+    fileprivate let overlayView = UIView()
+    
     fileprivate func handlePanChanged(transform: CGAffineTransform) {
         menuViewController.view.transform = transform
         navigationController?.view.transform = transform
+        overlayView.transform = transform
     }
     
     fileprivate func handlePanEnded(translation: CGPoint, velocity: CGPoint) {
@@ -101,8 +106,9 @@ class HomeController: UITableViewController {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
             // Final position of the menu view after animating
             self.menuViewController.view.transform = transform
-//            self.view.transform = transform
             self.navigationController?.view.transform = transform
+            self.overlayView.transform = transform
+            self.overlayView.alpha = transform == .identity ? 0 : 1
         }, completion: nil)
     }
     
@@ -120,6 +126,19 @@ class HomeController: UITableViewController {
     
     fileprivate func setupPanGesture() {
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture)))
+    }
+    
+    fileprivate func setupOverlayView() {
+        overlayView.isUserInteractionEnabled = false
+        let mainWindow = UIApplication.shared.keyWindow
+        mainWindow?.addSubview(overlayView)
+        overlayView.frame = mainWindow?.frame ?? .zero
+        overlayView.alpha = 0
+        overlayView.backgroundColor = UIColor(white: 0, alpha: 0.8)
+    }
+    
+    fileprivate func removeOverlayView() {
+        overlayView.removeFromSuperview()
     }
 }
 
