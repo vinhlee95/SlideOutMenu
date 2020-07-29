@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0399F824D1052F0051A66B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0399F724D1052F0051A66B /* BaseViewController.swift */; };
+		1B0399FB24D107F60051A66B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0399FA24D107F60051A66B /* Extension.swift */; };
 		1B425E6024C7FA0000D9454D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B425E5F24C7FA0000D9454D /* MenuViewController.swift */; };
 		1BF369BD24C69EF700C7AC12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF369BC24C69EF700C7AC12 /* AppDelegate.swift */; };
 		1BF369BF24C69EF700C7AC12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF369BE24C69EF700C7AC12 /* SceneDelegate.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B0399F724D1052F0051A66B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		1B0399FA24D107F60051A66B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		1B425E5F24C7FA0000D9454D /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		1BF369B924C69EF700C7AC12 /* SlideOutMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideOutMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF369BC24C69EF700C7AC12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,11 +41,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B0399F924D107E10051A66B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1B0399FA24D107F60051A66B /* Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		1B425E6124C7FC1D00D9454D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				1B425E5F24C7FA0000D9454D /* MenuViewController.swift */,
 				1BF369C024C69EF700C7AC12 /* HomeController.swift */,
+				1B0399F724D1052F0051A66B /* BaseViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -65,6 +78,7 @@
 		1BF369BB24C69EF700C7AC12 /* SlideOutMenu */ = {
 			isa = PBXGroup;
 			children = (
+				1B0399F924D107E10051A66B /* Extensions */,
 				1B425E6124C7FC1D00D9454D /* ViewController */,
 				1BF369BC24C69EF700C7AC12 /* AppDelegate.swift */,
 				1BF369BE24C69EF700C7AC12 /* SceneDelegate.swift */,
@@ -145,8 +159,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0399F824D1052F0051A66B /* BaseViewController.swift in Sources */,
 				1BF369C124C69EF700C7AC12 /* HomeController.swift in Sources */,
 				1BF369BD24C69EF700C7AC12 /* AppDelegate.swift in Sources */,
+				1B0399FB24D107F60051A66B /* Extension.swift in Sources */,
 				1BF369BF24C69EF700C7AC12 /* SceneDelegate.swift in Sources */,
 				1B425E6024C7FA0000D9454D /* MenuViewController.swift in Sources */,
 			);

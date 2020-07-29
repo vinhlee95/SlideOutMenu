@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeController: UITableViewController {
+class HomeController: UITableViewController, UIGestureRecognizerDelegate {
     private let rowNumber = 5
     private let cellId = "cellId"
     private let menuViewController = MenuViewController()
@@ -125,7 +125,9 @@ class HomeController: UITableViewController {
     }
     
     fileprivate func setupPanGesture() {
-        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture)))
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        panGesture.delegate = self
+        view.addGestureRecognizer(panGesture)
     }
     
     fileprivate func setupOverlayView() {
@@ -142,3 +144,11 @@ class HomeController: UITableViewController {
     }
 }
 
+//
+// Recognise pan gesture along with others
+//
+extension HomeController {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
