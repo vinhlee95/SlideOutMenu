@@ -12,20 +12,16 @@ class BaseViewController: UIViewController {
     
     var redView: UIView = {
         let v = UIView()
-        v.backgroundColor = .red
         return v
     }()
     
     let blueView: UIView = {
         let v = UIView()
-        v.backgroundColor = .blue
         return v
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
         setupViews()
         setupPanGesture()
     }
