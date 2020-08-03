@@ -35,6 +35,7 @@ class BaseViewController: UIViewController {
     
     @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
+        
         var x = translation.x
         x = isMenuOpen ? x + menuWidth : x
         x = min(x, menuWidth)
@@ -50,14 +51,44 @@ class BaseViewController: UIViewController {
     
     fileprivate func handleGestureEnded(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
-        if translation.x > menuWidth / 2 {
-            homeViewContainerLeadingConstraint.constant = menuWidth
-            isMenuOpen = true
+        let velocity = gesture.velocity(in: view)
+        
+        if isMenuOpen {
+            if abs(translation.x) > menuWidth/2 {
+                closeMenu()
+            } else {
+                openMenu()
+            }
+            
+            if(abs(velocity.x) > velocityXThreshold) {
+                closeMenu()
+            }
         } else {
-            homeViewContainerLeadingConstraint.constant = 0
-            isMenuOpen = false
+            if translation.x > menuWidth/2 {
+                openMenu()
+            } else {
+                closeMenu()
+            }
+            
+            if(abs(velocity.x) > velocityXThreshold) {
+                openMenu()
+            }
         }
-                
+               
+        animate()
+    }
+    
+    fileprivate func openMenu() {
+        homeViewContainerLeadingConstraint.constant = menuWidth
+        isMenuOpen = true
+    }
+    
+    fileprivate func closeMenu() {
+        homeViewContainerLeadingConstraint.constant = 0
+        isMenuOpen = false
+    }
+    
+    fileprivate func animate() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
             self.overlayView.alpha = self.isMenuOpen ? 1 : 0
@@ -66,6 +97,7 @@ class BaseViewController: UIViewController {
     
     var homeViewContainerLeadingConstraint: NSLayoutConstraint!
     fileprivate let menuWidth: CGFloat = 300
+    fileprivate let velocityXThreshold: CGFloat = 400
     fileprivate var isMenuOpen = false
     
     fileprivate func setupViews() {
