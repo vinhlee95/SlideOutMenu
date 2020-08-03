@@ -10,13 +10,20 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    var redView: UIView = {
+    var homeViewContainer: UIView = {
         let v = UIView()
         return v
     }()
     
-    let blueView: UIView = {
+    let menuViewContainer: UIView = {
         let v = UIView()
+        return v
+    }()
+    
+    let overlayView: UIView = {
+        let v = UIView()
+        v.alpha = 0
+        v.backgroundColor = UIColor(white: 0, alpha: 0.8)
         return v
     }()
     
@@ -32,7 +39,9 @@ class BaseViewController: UIViewController {
         x = isMenuOpen ? x + menuWidth : x
         x = min(x, menuWidth)
         x = max(0, x)
-        redViewLeadingConstraint.constant = x
+        homeViewContainerLeadingConstraint.constant = x
+        
+        overlayView.alpha = x/menuWidth
         
         if gesture.state == .ended {
             handleGestureEnded(gesture: gesture)
@@ -42,31 +51,35 @@ class BaseViewController: UIViewController {
     fileprivate func handleGestureEnded(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
         if translation.x > menuWidth / 2 {
-            redViewLeadingConstraint.constant = menuWidth
+            homeViewContainerLeadingConstraint.constant = menuWidth
             isMenuOpen = true
         } else {
-            redViewLeadingConstraint.constant = 0
+            homeViewContainerLeadingConstraint.constant = 0
             isMenuOpen = false
         }
-        
+                
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
+            self.overlayView.alpha = self.isMenuOpen ? 1 : 0
         }, completion: nil)
     }
     
-    var redViewLeadingConstraint: NSLayoutConstraint!
+    var homeViewContainerLeadingConstraint: NSLayoutConstraint!
     fileprivate let menuWidth: CGFloat = 300
     fileprivate var isMenuOpen = false
     
     fileprivate func setupViews() {
-        view.addSubview(redView)
-        redView.anchor(top: view.topAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
-        self.redViewLeadingConstraint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
-        self.redViewLeadingConstraint.isActive = true
+        view.addSubview(homeViewContainer)
+        homeViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        self.homeViewContainerLeadingConstraint = homeViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
+        self.homeViewContainerLeadingConstraint.isActive = true
         
-        view.addSubview(blueView)
-        blueView.anchor(top: view.topAnchor, leading: nil, bottom: redView.bottomAnchor, trailing: redView.safeAreaLayoutGuide.leadingAnchor)
-        blueView.widthAnchor.constraint(equalToConstant: menuWidth).isActive = true
+        view.addSubview(menuViewContainer)
+        menuViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.safeAreaLayoutGuide.leadingAnchor)
+        menuViewContainer.widthAnchor.constraint(equalToConstant: menuWidth).isActive = true
+        
+        view.addSubview(overlayView)
+        overlayView.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
         
         setupViewControllers()
     }
@@ -79,15 +92,15 @@ class BaseViewController: UIViewController {
     fileprivate func setupViewControllers() {
         let homeController = HomeController()
         let homeView = homeController.view!
-        redView.addSubview(homeView)
-        homeView.anchor(top: redView.topAnchor, leading: redView.leadingAnchor, bottom: redView.bottomAnchor, trailing: redView.trailingAnchor)
+        homeViewContainer.addSubview(homeView)
+        homeView.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
         addChild(homeController)
         
         let menuController = MenuViewController()
         let menuView = menuController.view!
         menuView.frame = CGRect(x: -menuWidth, y: 0, width: menuWidth, height: self.view.frame.height)
-        blueView.addSubview(menuView)
-        menuView.anchor(top: blueView.topAnchor, leading: blueView.leadingAnchor, bottom: blueView.bottomAnchor, trailing: blueView.trailingAnchor)
+        menuViewContainer.addSubview(menuView)
+        menuView.anchor(top: menuViewContainer.topAnchor, leading: menuViewContainer.leadingAnchor, bottom: menuViewContainer.bottomAnchor, trailing: menuViewContainer.trailingAnchor)
         addChild(menuController)
     }
 }
