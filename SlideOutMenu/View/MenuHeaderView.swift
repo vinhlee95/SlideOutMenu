@@ -55,7 +55,6 @@ class MenuHeaderView: UIView {
     
     fileprivate func setupStackView() {
         let view = UIView()
-        view.backgroundColor = .red
         let photoStackView = UIStackView(arrangedSubviews: [profileImageView, view])
         let statsStackView = UIStackView(arrangedSubviews: [followingLabel, followerLabel])
         let stackView = UIStackView(arrangedSubviews: [photoStackView, nameLabel, nicknameLabel, SpacerView(space: 16), statsStackView])
