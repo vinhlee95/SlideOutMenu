@@ -8,12 +8,23 @@
 
 import UIKit
 
+struct MenuItem {
+    let icon: UIImage
+    let label: String
+}
+
 class MenuViewController: UITableViewController {
-    private let rowNumber = 5
     private let cellId = "cellId"
-    
+    private let menuItems = [
+        MenuItem(icon: #imageLiteral(resourceName: "profile"), label: "Profile"),
+        MenuItem(icon: #imageLiteral(resourceName: "lists"), label: "Lists"),
+        MenuItem(icon: #imageLiteral(resourceName: "bookmarks"), label: "Bookmarks"),
+        MenuItem(icon: #imageLiteral(resourceName: "moments"), label: "Moments"),
+    ]
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorStyle = .none
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -26,12 +37,14 @@ class MenuViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rowNumber
+        return menuItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: cellId)
-        cell.textLabel?.text = "Menu item: \(indexPath.row)"
+        let menuItem = menuItems[indexPath.row]
+        cell.textLabel?.text = menuItem.label
+        cell.imageView?.image = menuItem.icon
         return cell
     }
 }
