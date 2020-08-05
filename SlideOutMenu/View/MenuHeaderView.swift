@@ -28,6 +28,15 @@ class MenuHeaderView: UIView {
         return label
     }()
     
+    var profileImageView: UIImageView = {
+        let v = ProfileImageView(width: 48, height: 48)
+        v.image = UIImage(named: "vinh")
+        v.contentMode = .scaleAspectFill
+        v.layer.cornerRadius = 48/2
+        v.layer.masksToBounds = true
+        return v
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
@@ -39,7 +48,8 @@ class MenuHeaderView: UIView {
     }
     
     fileprivate func setupStackView() {
-        let stackView = UIStackView(arrangedSubviews: [nameLabel, nicknameLabel, SpacerView(space: 32), statsLabel])
+        let photoStackView = UIStackView(arrangedSubviews: [profileImageView, UIView()])
+        let stackView = UIStackView(arrangedSubviews: [photoStackView, nameLabel, nicknameLabel, SpacerView(space: 32), statsLabel])
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.isLayoutMarginsRelativeArrangement = true
