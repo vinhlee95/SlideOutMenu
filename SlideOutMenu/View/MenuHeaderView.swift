@@ -9,6 +9,15 @@
 import UIKit
 
 class MenuHeaderView: UIView {
+    var profileImageView: UIImageView = {
+        let v = ProfileImageView(width: 48, height: 48)
+        v.image = UIImage(named: "vinh")
+        v.contentMode = .scaleAspectFill
+        v.layer.cornerRadius = 48/2
+        v.layer.masksToBounds = true
+        return v
+    }()
+    
     var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Vinh Le"
@@ -22,19 +31,16 @@ class MenuHeaderView: UIView {
         return label
     }()
     
-    var statsLabel: UILabel = {
+    var followingLabel: UILabel = {
         let label = UILabel()
-        label.text = "2020 followers"
+        label.addAttributeText(primaryText: "2020", secondaryText: " Following")
         return label
     }()
     
-    var profileImageView: UIImageView = {
-        let v = ProfileImageView(width: 48, height: 48)
-        v.image = UIImage(named: "vinh")
-        v.contentMode = .scaleAspectFill
-        v.layer.cornerRadius = 48/2
-        v.layer.masksToBounds = true
-        return v
+    var followerLabel: UILabel = {
+        let label = UILabel()
+        label.addAttributeText(primaryText: "  2020", secondaryText: " Followers")
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -48,8 +54,11 @@ class MenuHeaderView: UIView {
     }
     
     fileprivate func setupStackView() {
-        let photoStackView = UIStackView(arrangedSubviews: [profileImageView, UIView()])
-        let stackView = UIStackView(arrangedSubviews: [photoStackView, nameLabel, nicknameLabel, SpacerView(space: 32), statsLabel])
+        let view = UIView()
+        view.backgroundColor = .red
+        let photoStackView = UIStackView(arrangedSubviews: [profileImageView, view])
+        let statsStackView = UIStackView(arrangedSubviews: [followingLabel, followerLabel])
+        let stackView = UIStackView(arrangedSubviews: [photoStackView, nameLabel, nicknameLabel, SpacerView(space: 16), statsStackView])
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.isLayoutMarginsRelativeArrangement = true

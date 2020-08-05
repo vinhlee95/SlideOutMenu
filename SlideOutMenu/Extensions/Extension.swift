@@ -28,3 +28,11 @@ extension UIView {
         }
     }
 }
+
+extension UILabel {
+    func addAttributeText(primaryText: String, secondaryText: String) {
+        let attributedText = NSMutableAttributedString(string: primaryText, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17)])
+        attributedText.append(NSAttributedString(string: secondaryText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
+        self.attributedText = attributedText
+    }
+}
