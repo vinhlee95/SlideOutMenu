@@ -41,10 +41,10 @@ class MenuViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: cellId)
+        let cell = MenuItemCell(style: .default, reuseIdentifier: cellId)
         let menuItem = menuItems[indexPath.row]
-        cell.textLabel?.text = menuItem.label
-        cell.imageView?.image = menuItem.icon
+        cell.menuLabel.text = menuItem.label
+        cell.menuIcon.image = menuItem.icon
         return cell
     }
 }
