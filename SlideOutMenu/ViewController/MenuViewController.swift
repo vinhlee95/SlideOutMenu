@@ -16,7 +16,7 @@ struct MenuItem {
 class MenuViewController: UITableViewController {
     private let cellId = "cellId"
     private let menuItems = [
-        MenuItem(icon: #imageLiteral(resourceName: "profile"), label: "Profile"),
+        MenuItem(icon: #imageLiteral(resourceName: "profile"), label: "Home"),
         MenuItem(icon: #imageLiteral(resourceName: "lists"), label: "Lists"),
         MenuItem(icon: #imageLiteral(resourceName: "bookmarks"), label: "Bookmarks"),
         MenuItem(icon: #imageLiteral(resourceName: "moments"), label: "Moments"),
@@ -46,5 +46,13 @@ class MenuViewController: UITableViewController {
         cell.menuLabel.text = menuItem.label
         cell.menuIcon.image = menuItem.icon
         return cell
+    }
+}
+
+extension MenuViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let baseViewController = keyWindow?.rootViewController as! BaseViewController
+        baseViewController.closeMenu()
     }
 }

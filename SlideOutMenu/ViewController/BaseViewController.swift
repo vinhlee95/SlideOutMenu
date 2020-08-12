@@ -74,18 +74,18 @@ class BaseViewController: UIViewController {
                 openMenu()
             }
         }
-               
+    }
+    
+    func openMenu() {
+        homeViewContainerLeadingConstraint.constant = menuWidth
+        isMenuOpen = true
         animate()
     }
     
-    fileprivate func openMenu() {
-        homeViewContainerLeadingConstraint.constant = menuWidth
-        isMenuOpen = true
-    }
-    
-    fileprivate func closeMenu() {
+    func closeMenu() {
         homeViewContainerLeadingConstraint.constant = 0
         isMenuOpen = false
+        animate()
     }
     
     fileprivate func animate() {
