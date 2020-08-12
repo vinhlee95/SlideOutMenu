@@ -53,6 +53,6 @@ extension MenuViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
         let baseViewController = keyWindow?.rootViewController as! BaseViewController
-        baseViewController.closeMenu()
+        baseViewController.selectMenuItem(indexPath: indexPath)
     }
 }

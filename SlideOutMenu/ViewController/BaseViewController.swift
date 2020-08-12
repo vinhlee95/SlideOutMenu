@@ -76,16 +76,35 @@ class BaseViewController: UIViewController {
         }
     }
     
-    func openMenu() {
+    fileprivate func openMenu() {
         homeViewContainerLeadingConstraint.constant = menuWidth
         isMenuOpen = true
         animate()
     }
     
-    func closeMenu() {
+    fileprivate func closeMenu() {
         homeViewContainerLeadingConstraint.constant = 0
         isMenuOpen = false
         animate()
+    }
+    
+    func selectMenuItem(indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            print("Select home")
+        case 1:
+            addListView()
+        default:
+            closeMenu()
+        }
+        closeMenu()
+        view.bringSubviewToFront(overlayView)
+    }
+    
+    fileprivate func addListView() {
+        let listViewController = ListViewController()
+        homeViewContainer.addSubview(listViewController.view)
+        listViewController.view.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
     }
     
     fileprivate func animate() {
