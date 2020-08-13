@@ -89,22 +89,39 @@ class BaseViewController: UIViewController {
     }
     
     func selectMenuItem(indexPath: IndexPath) {
+        removePreviousView()
+        var subViewController: UIViewController?
         switch indexPath.row {
         case 0:
             print("Select home")
         case 1:
-            addListView()
+            subViewController = ListViewController()
+        case 2:
+            subViewController = BookmarkViewController()
         default:
             closeMenu()
+        }
+        if let subViewController = subViewController {
+            appendSubView(view: subViewController.view)
+            addChild(subViewController)
+            previousSubviewController = subViewController
         }
         closeMenu()
         view.bringSubviewToFront(overlayView)
     }
     
-    fileprivate func addListView() {
-        let listViewController = ListViewController()
-        homeViewContainer.addSubview(listViewController.view)
-        listViewController.view.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
+    private var previousSubviewController: UIViewController?
+    
+    fileprivate func removePreviousView() {
+        if let previousSubviewController = previousSubviewController {
+            previousSubviewController.view.removeFromSuperview()
+            previousSubviewController.removeFromParent()
+        }
+    }
+    
+    fileprivate func appendSubView(view: UIView) {
+        homeViewContainer.addSubview(view)
+        view.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
     }
     
     fileprivate func animate() {
@@ -119,6 +136,10 @@ class BaseViewController: UIViewController {
     fileprivate let velocityXThreshold: CGFloat = 400
     fileprivate var isMenuOpen = false
     
+    //
+    // Add Home and menu subViews to main view
+    // - Setup Auto layout
+    //
     fileprivate func setupViews() {
         view.addSubview(homeViewContainer)
         homeViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
@@ -140,6 +161,11 @@ class BaseViewController: UIViewController {
         view.addGestureRecognizer(panGesture)
     }
     
+    //
+    // Setup view controllers
+    // Instantiate HomeViewController and MenuViewController
+    // append their views to already setup Home and Menu view
+    //
     fileprivate func setupViewControllers() {
         let homeController = HomeController()
         let homeView = homeController.view!
