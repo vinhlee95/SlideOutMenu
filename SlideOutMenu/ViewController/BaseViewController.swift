@@ -8,20 +8,24 @@
 
 import UIKit
 
+class HomeContainerView: UIView {}
+class MenuContainerView: UIView {}
+class OverlayView: UIView {}
+
 class BaseViewController: UIViewController {
     
-    var homeViewContainer: UIView = {
-        let v = UIView()
+    var homeViewContainer: HomeContainerView = {
+        let v = HomeContainerView()
         return v
     }()
     
-    let menuViewContainer: UIView = {
-        let v = UIView()
+    let menuViewContainer: MenuContainerView = {
+        let v = MenuContainerView()
         return v
     }()
     
-    let overlayView: UIView = {
-        let v = UIView()
+    let overlayView: OverlayView = {
+        let v = OverlayView()
         v.alpha = 0
         v.backgroundColor = UIColor(white: 0, alpha: 0.8)
         return v
@@ -93,13 +97,13 @@ class BaseViewController: UIViewController {
         var subViewController: UIViewController?
         switch indexPath.row {
         case 0:
-            print("Select home")
+            subViewController = HomeController()
         case 1:
             subViewController = ListViewController()
         case 2:
             subViewController = BookmarkViewController()
         default:
-            closeMenu()
+            subViewController = HomeController()
         }
         if let subViewController = subViewController {
             appendSubView(view: subViewController.view)
@@ -168,6 +172,7 @@ class BaseViewController: UIViewController {
     //
     fileprivate func setupViewControllers() {
         let homeController = HomeController()
+        previousSubviewController = homeController
         let homeView = homeController.view!
         homeViewContainer.addSubview(homeView)
         homeView.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
