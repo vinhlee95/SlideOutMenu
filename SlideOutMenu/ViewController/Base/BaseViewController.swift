@@ -102,6 +102,11 @@ class BaseViewController: UIViewController {
             mainViewController = UINavigationController(rootViewController: ListViewController())
         case 2:
             mainViewController = BookmarkViewController()
+        case 3:
+            let navigationController = UINavigationController(rootViewController: MomentViewController())
+            let tabBarController = UITabBarController()
+            tabBarController.viewControllers = [navigationController]
+            mainViewController = tabBarController
         default:
             mainViewController = UINavigationController(rootViewController: HomeController())
         }
