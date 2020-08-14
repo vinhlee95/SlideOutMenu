@@ -80,13 +80,13 @@ class BaseViewController: UIViewController {
         }
     }
     
-    fileprivate func openMenu() {
+    func openMenu() {
         homeViewContainerLeadingConstraint.constant = menuWidth
         isMenuOpen = true
         animate()
     }
     
-    fileprivate func closeMenu() {
+    func closeMenu() {
         homeViewContainerLeadingConstraint.constant = 0
         isMenuOpen = false
         animate()
@@ -111,16 +111,14 @@ class BaseViewController: UIViewController {
             previousSubviewController = subViewController
         }
         closeMenu()
-        view.bringSubviewToFront(overlayView)
+        homeViewContainer.bringSubviewToFront(overlayView)
     }
     
-    private var previousSubviewController: UIViewController?
+    private var previousSubviewController: UIViewController = UINavigationController(rootViewController: HomeController())
     
     fileprivate func removePreviousView() {
-        if let previousSubviewController = previousSubviewController {
-            previousSubviewController.view.removeFromSuperview()
-            previousSubviewController.removeFromParent()
-        }
+        previousSubviewController.view.removeFromSuperview()
+        previousSubviewController.removeFromParent()
     }
     
     fileprivate func appendSubView(view: UIView) {
@@ -171,12 +169,10 @@ class BaseViewController: UIViewController {
     // append their views to already setup Home and Menu view
     //
     fileprivate func setupViewControllers() {
-        let homeController = HomeController()
-        previousSubviewController = homeController
-        let homeView = homeController.view!
+        let homeView = previousSubviewController.view!
         homeViewContainer.addSubview(homeView)
         homeView.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
-        addChild(homeController)
+        addChild(previousSubviewController)
         
         let menuController = MenuViewController()
         let menuView = menuController.view!
