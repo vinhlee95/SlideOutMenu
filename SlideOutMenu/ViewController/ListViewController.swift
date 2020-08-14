@@ -13,6 +13,12 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setupLabel()
+        navigationItem.title = "List"
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    fileprivate func setupLabel() {
         let label = UILabel()
         label.text = "Lists"
         label.font = UIFont.systemFont(ofSize: 50, weight: .bold)

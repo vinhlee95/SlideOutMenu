@@ -13,6 +13,7 @@ class MenuContainerView: UIView {}
 class OverlayView: UIView {}
 
 class BaseViewController: UIViewController {
+    private var mainViewController: UIViewController = UINavigationController(rootViewController: HomeController())
     
     var homeViewContainer: HomeContainerView = {
         let v = HomeContainerView()
@@ -80,13 +81,13 @@ class BaseViewController: UIViewController {
         }
     }
     
-    func openMenu() {
+     func openMenu() {
         homeViewContainerLeadingConstraint.constant = menuWidth
         isMenuOpen = true
         animate()
     }
     
-    func closeMenu() {
+     func closeMenu() {
         homeViewContainerLeadingConstraint.constant = 0
         isMenuOpen = false
         animate()
@@ -94,31 +95,26 @@ class BaseViewController: UIViewController {
     
     func selectMenuItem(indexPath: IndexPath) {
         removePreviousView()
-        var subViewController: UIViewController?
         switch indexPath.row {
         case 0:
-            subViewController = HomeController()
+            mainViewController = UINavigationController(rootViewController: HomeController())
         case 1:
-            subViewController = ListViewController()
+            mainViewController = UINavigationController(rootViewController: ListViewController())
         case 2:
-            subViewController = BookmarkViewController()
+            mainViewController = BookmarkViewController()
         default:
-            subViewController = HomeController()
+            mainViewController = UINavigationController(rootViewController: HomeController())
         }
-        if let subViewController = subViewController {
-            appendSubView(view: subViewController.view)
-            addChild(subViewController)
-            previousSubviewController = subViewController
-        }
+        
+        appendSubView(view: mainViewController.view)
+        addChild(mainViewController)
         closeMenu()
         homeViewContainer.bringSubviewToFront(overlayView)
     }
     
-    private var previousSubviewController: UIViewController = UINavigationController(rootViewController: HomeController())
-    
     fileprivate func removePreviousView() {
-        previousSubviewController.view.removeFromSuperview()
-        previousSubviewController.removeFromParent()
+        mainViewController.view.removeFromSuperview()
+        mainViewController.removeFromParent()
     }
     
     fileprivate func appendSubView(view: UIView) {
@@ -169,10 +165,10 @@ class BaseViewController: UIViewController {
     // append their views to already setup Home and Menu view
     //
     fileprivate func setupViewControllers() {
-        let homeView = previousSubviewController.view!
+        let homeView = mainViewController.view!
         homeViewContainer.addSubview(homeView)
         homeView.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
-        addChild(previousSubviewController)
+        addChild(mainViewController)
         
         let menuController = MenuViewController()
         let menuView = menuController.view!
