@@ -17,7 +17,8 @@ class BaseViewController: UIViewController {
     fileprivate let velocityXThreshold: CGFloat = 400
     fileprivate var isMenuOpen = false
     private var mainViewController: UIViewController = UINavigationController(rootViewController: HomeController())
-    var mainViewContainerLeadingConstraint: NSLayoutConstraint!
+    var mainViewLeadingConstraint: NSLayoutConstraint!
+    var mainViewTrailingConstraint: NSLayoutConstraint!
     
     var homeViewContainer: HomeContainerView = {
         let v = HomeContainerView()
@@ -49,7 +50,8 @@ class BaseViewController: UIViewController {
         x = isMenuOpen ? x + menuWidth : x
         x = min(x, menuWidth)
         x = max(0, x)
-        mainViewContainerLeadingConstraint.constant = x
+        mainViewLeadingConstraint.constant = x
+        mainViewTrailingConstraint.constant = x
         
         overlayView.alpha = x/menuWidth
         
@@ -90,13 +92,15 @@ class BaseViewController: UIViewController {
     }
     
      func openMenu() {
-        mainViewContainerLeadingConstraint.constant = menuWidth
+        mainViewLeadingConstraint.constant = menuWidth
+        mainViewTrailingConstraint.constant = menuWidth
         isMenuOpen = true
         animate()
     }
     
      func closeMenu() {
-        mainViewContainerLeadingConstraint.constant = 0
+        mainViewLeadingConstraint.constant = 0
+        mainViewTrailingConstraint.constant = 0
         isMenuOpen = false
         animate()
     }
@@ -148,9 +152,11 @@ class BaseViewController: UIViewController {
     //
     fileprivate func setupViews() {
         view.addSubview(homeViewContainer)
-        homeViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
-        mainViewContainerLeadingConstraint = homeViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
-        mainViewContainerLeadingConstraint.isActive = true
+        homeViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: view.bottomAnchor, trailing: nil)
+        mainViewLeadingConstraint = homeViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
+        mainViewLeadingConstraint.isActive = true
+        mainViewTrailingConstraint = homeViewContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        mainViewTrailingConstraint.isActive = true
         
         view.addSubview(menuViewContainer)
         menuViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.safeAreaLayoutGuide.leadingAnchor)
