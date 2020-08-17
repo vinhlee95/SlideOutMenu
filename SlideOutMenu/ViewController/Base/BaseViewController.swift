@@ -13,7 +13,11 @@ class MenuContainerView: UIView {}
 class OverlayView: UIView {}
 
 class BaseViewController: UIViewController {
+    fileprivate let menuWidth: CGFloat = 300
+    fileprivate let velocityXThreshold: CGFloat = 400
+    fileprivate var isMenuOpen = false
     private var mainViewController: UIViewController = UINavigationController(rootViewController: HomeController())
+    var mainViewContainerLeadingConstraint: NSLayoutConstraint!
     
     var homeViewContainer: HomeContainerView = {
         let v = HomeContainerView()
@@ -45,7 +49,7 @@ class BaseViewController: UIViewController {
         x = isMenuOpen ? x + menuWidth : x
         x = min(x, menuWidth)
         x = max(0, x)
-        homeViewContainerLeadingConstraint.constant = x
+        mainViewContainerLeadingConstraint.constant = x
         
         overlayView.alpha = x/menuWidth
         
@@ -86,13 +90,13 @@ class BaseViewController: UIViewController {
     }
     
      func openMenu() {
-        homeViewContainerLeadingConstraint.constant = menuWidth
+        mainViewContainerLeadingConstraint.constant = menuWidth
         isMenuOpen = true
         animate()
     }
     
      func closeMenu() {
-        homeViewContainerLeadingConstraint.constant = 0
+        mainViewContainerLeadingConstraint.constant = 0
         isMenuOpen = false
         animate()
     }
@@ -138,11 +142,6 @@ class BaseViewController: UIViewController {
         }, completion: nil)
     }
     
-    var homeViewContainerLeadingConstraint: NSLayoutConstraint!
-    fileprivate let menuWidth: CGFloat = 300
-    fileprivate let velocityXThreshold: CGFloat = 400
-    fileprivate var isMenuOpen = false
-    
     //
     // Add Home and menu subViews to main view
     // - Setup Auto layout
@@ -150,8 +149,8 @@ class BaseViewController: UIViewController {
     fileprivate func setupViews() {
         view.addSubview(homeViewContainer)
         homeViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
-        self.homeViewContainerLeadingConstraint = homeViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
-        self.homeViewContainerLeadingConstraint.isActive = true
+        mainViewContainerLeadingConstraint = homeViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
+        mainViewContainerLeadingConstraint.isActive = true
         
         view.addSubview(menuViewContainer)
         menuViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.safeAreaLayoutGuide.leadingAnchor)
