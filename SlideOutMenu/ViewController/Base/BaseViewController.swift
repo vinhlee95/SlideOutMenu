@@ -159,7 +159,7 @@ class BaseViewController: UIViewController {
         mainViewTrailingConstraint.isActive = true
         
         view.addSubview(menuViewContainer)
-        menuViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.safeAreaLayoutGuide.leadingAnchor)
+        menuViewContainer.anchor(top: view.topAnchor, leading: nil, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.leadingAnchor)
         menuViewContainer.widthAnchor.constraint(equalToConstant: menuWidth).isActive = true
         
         view.addSubview(overlayView)
@@ -185,7 +185,7 @@ class BaseViewController: UIViewController {
         homeView.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
         addChild(mainViewController)
         
-        let menuController = MenuViewController()
+        let menuController = ChatRoomMenuController()
         let menuView = menuController.view!
         menuView.frame = CGRect(x: -menuWidth, y: 0, width: menuWidth, height: self.view.frame.height)
         menuViewContainer.addSubview(menuView)
