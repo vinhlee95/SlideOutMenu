@@ -54,6 +54,10 @@ class BaseViewController: UIViewController {
         }
     }
     
+    @objc func handleClickOverlay() {
+        closeMenu()
+    }
+    
     fileprivate func handleGestureEnded(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
         let velocity = gesture.velocity(in: view)
@@ -155,7 +159,8 @@ class BaseViewController: UIViewController {
         
         view.addSubview(overlayView)
         overlayView.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
-        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleClickOverlay))
+        overlayView.addGestureRecognizer(gesture)
         setupViewControllers()
     }
     
