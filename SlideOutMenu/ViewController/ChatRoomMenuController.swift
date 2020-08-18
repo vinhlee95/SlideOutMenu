@@ -44,7 +44,7 @@ class ChatRoomMenuController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: cellId)
+        let cell = ChatroomMenuCell(style: .default, reuseIdentifier: cellId)
         cell.textLabel?.text = data[indexPath.section][indexPath.row]
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         cell.textLabel?.textColor = .white
