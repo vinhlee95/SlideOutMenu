@@ -22,17 +22,22 @@ class ChatRoomMenuController: UITableViewController {
         tableView.backgroundColor = #colorLiteral(red: 0.2980392157, green: 0.2078431373, blue: 0.2862745098, alpha: 1)
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Unreads"
-        case 1:
-            return "Channels"
-        case 2:
-            return "Direct messages"
-        default:
-            return ""
+    fileprivate class SectionHeaderLabel: UILabel {
+        override func drawText(in rect: CGRect) {
+            super.drawText(in: rect.insetBy(dx: 16, dy: 0))
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let text = section == 0 ? "UNREADS" : section == 1 ? "CHANNELS" : "DIRECT MESSAGES"
+        let label = SectionHeaderLabel()
+        label.text = text
+        label.textColor = #colorLiteral(red: 0.4745098039, green: 0.4078431373, blue: 0.4666666667, alpha: 1)
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,9 +50,10 @@ class ChatRoomMenuController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ChatroomMenuCell(style: .default, reuseIdentifier: cellId)
-        cell.textLabel?.text = data[indexPath.section][indexPath.row]
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        cell.textLabel?.textColor = .white
+        let text = data[indexPath.section][indexPath.row]
+        let firstText = AttributedText(text: "#  ", fontSize: 18, fontWeight: .regular, color: #colorLiteral(red: 0.4745098039, green: 0.4078431373, blue: 0.4666666667, alpha: 1))
+        let secondText = AttributedText(text: text, fontSize: 18, fontWeight: .bold, color: .white)
+        cell.textLabel?.appendAttributedText(firstText: firstText, secondText: secondText)
         cell.backgroundColor = .clear
         return cell
     }

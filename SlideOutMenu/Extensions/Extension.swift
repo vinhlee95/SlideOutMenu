@@ -20,11 +20,11 @@ extension UIView {
         }
         
         if let bottom = bottom {
-            self.bottomAnchor.constraint(equalTo: bottom, constant: paddingBottom).isActive = true
+            self.bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
         }
         
         if let trailing = trailing {
-            self.trailingAnchor.constraint(equalTo: trailing, constant: paddingRight).isActive = true
+            self.trailingAnchor.constraint(equalTo: trailing, constant: -paddingRight).isActive = true
         }
     }
     
@@ -48,10 +48,39 @@ extension UIView {
     }
 }
 
+class AttributedText {
+    var text: String
+    var fontSize: CGFloat
+    var fontWeight: UIFont.Weight
+    var color: UIColor
+    
+    init(text: String, fontSize: CGFloat, fontWeight: UIFont.Weight, color: UIColor) {
+        self.text = text
+        self.fontSize = fontSize
+        self.fontWeight = fontWeight
+        self.color = color
+    }
+}
+
 extension UILabel {
     func addAttributeText(primaryText: String, secondaryText: String) {
         let attributedText = NSMutableAttributedString(string: primaryText, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17)])
         attributedText.append(NSAttributedString(string: secondaryText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
+        self.attributedText = attributedText
+    }
+
+    //
+    // This should be used over the previous method
+    //
+    func appendAttributedText(firstText: AttributedText, secondText: AttributedText) {
+        let attributedText = NSMutableAttributedString(string: firstText.text, attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: firstText.fontSize, weight: firstText.fontWeight),
+            NSAttributedString.Key.foregroundColor: firstText.color
+        ])
+        attributedText.append(NSAttributedString(string: secondText.text, attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: secondText.fontSize, weight: secondText.fontWeight),
+            NSAttributedString.Key.foregroundColor: secondText.color
+        ]))
         self.attributedText = attributedText
     }
 }
