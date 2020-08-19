@@ -191,7 +191,7 @@ class BaseViewController: UIViewController {
         homeView.anchor(top: homeViewContainer.topAnchor, leading: homeViewContainer.leadingAnchor, bottom: homeViewContainer.bottomAnchor, trailing: homeViewContainer.trailingAnchor)
         addChild(mainViewController)
         
-        let menuController = ChatRoomMenuController()
+        let menuController = ChatroomMenuContainer()
         let menuView = menuController.view!
         menuView.frame = CGRect(x: -menuWidth, y: 0, width: menuWidth, height: self.view.frame.height)
         menuViewContainer.addSubview(menuView)

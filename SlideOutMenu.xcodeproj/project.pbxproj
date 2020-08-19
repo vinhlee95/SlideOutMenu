@@ -18,6 +18,8 @@
 		1B66F41F24E4CE7800393E1D /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B66F41E24E4CE7800393E1D /* BookmarkViewController.swift */; };
 		1B908A6824EA272000DD69DA /* ChatRoomMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B908A6724EA271F00DD69DA /* ChatRoomMenuController.swift */; };
 		1B908A6A24EB8B3100DD69DA /* ChatroomMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B908A6924EB8B3000DD69DA /* ChatroomMenuCell.swift */; };
+		1B908A6D24ED8E6B00DD69DA /* ChatroomMenuContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B908A6C24ED8E6B00DD69DA /* ChatroomMenuContainer.swift */; };
+		1B908A6F24ED908700DD69DA /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B908A6E24ED908700DD69DA /* SearchController.swift */; };
 		1BB7704524E649A7005022BC /* MomentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB7704424E649A7005022BC /* MomentViewController.swift */; };
 		1BF369BD24C69EF700C7AC12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF369BC24C69EF700C7AC12 /* AppDelegate.swift */; };
 		1BF369BF24C69EF700C7AC12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF369BE24C69EF700C7AC12 /* SceneDelegate.swift */; };
@@ -38,6 +40,8 @@
 		1B66F41E24E4CE7800393E1D /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		1B908A6724EA271F00DD69DA /* ChatRoomMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMenuController.swift; sourceTree = "<group>"; };
 		1B908A6924EB8B3000DD69DA /* ChatroomMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomMenuCell.swift; sourceTree = "<group>"; };
+		1B908A6C24ED8E6B00DD69DA /* ChatroomMenuContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomMenuContainer.swift; sourceTree = "<group>"; };
+		1B908A6E24ED908700DD69DA /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		1BB7704424E649A7005022BC /* MomentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentViewController.swift; sourceTree = "<group>"; };
 		1BF369B924C69EF700C7AC12 /* SlideOutMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideOutMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF369BC24C69EF700C7AC12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,15 +86,25 @@
 		1B425E6124C7FC1D00D9454D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1B908A6B24ED8DEA00DD69DA /* Menu */,
 				1BB7704324E6496D005022BC /* Base */,
 				1B425E5F24C7FA0000D9454D /* MenuViewController.swift */,
 				1BF369C024C69EF700C7AC12 /* HomeController.swift */,
 				1B66F41C24E3918E00393E1D /* ListViewController.swift */,
 				1B66F41E24E4CE7800393E1D /* BookmarkViewController.swift */,
 				1BB7704424E649A7005022BC /* MomentViewController.swift */,
-				1B908A6724EA271F00DD69DA /* ChatRoomMenuController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1B908A6B24ED8DEA00DD69DA /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				1B908A6724EA271F00DD69DA /* ChatRoomMenuController.swift */,
+				1B908A6C24ED8E6B00DD69DA /* ChatroomMenuContainer.swift */,
+				1B908A6E24ED908700DD69DA /* SearchController.swift */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		1BB7704324E6496D005022BC /* Base */ = {
@@ -212,7 +226,9 @@
 				1B908A6824EA272000DD69DA /* ChatRoomMenuController.swift in Sources */,
 				1B66F41D24E3918E00393E1D /* ListViewController.swift in Sources */,
 				1B039A0024D8F6320051A66B /* SpacerView.swift in Sources */,
+				1B908A6F24ED908700DD69DA /* SearchController.swift in Sources */,
 				1B0399FE24D8EFB50051A66B /* MenuHeaderView.swift in Sources */,
+				1B908A6D24ED8E6B00DD69DA /* ChatroomMenuContainer.swift in Sources */,
 				1B039A0224DA41000051A66B /* ProfileImageView.swift in Sources */,
 				1B908A6A24EB8B3100DD69DA /* ChatroomMenuCell.swift in Sources */,
 				1BF369BF24C69EF700C7AC12 /* SceneDelegate.swift in Sources */,
