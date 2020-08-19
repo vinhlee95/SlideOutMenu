@@ -95,6 +95,7 @@ class BaseViewController: UIViewController {
         mainViewLeadingConstraint.constant = menuWidth
         mainViewTrailingConstraint.constant = menuWidth
         isMenuOpen = true
+        setNeedsStatusBarAppearanceUpdate()
         animate()
     }
     
@@ -102,9 +103,14 @@ class BaseViewController: UIViewController {
         mainViewLeadingConstraint.constant = 0
         mainViewTrailingConstraint.constant = 0
         isMenuOpen = false
+        setNeedsStatusBarAppearanceUpdate()
         animate()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return isMenuOpen ? .lightContent : .default
+    }
+        
     func selectMenuItem(indexPath: IndexPath) {
         removePreviousView()
         switch indexPath.row {
