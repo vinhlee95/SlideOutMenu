@@ -42,7 +42,23 @@ class HomeController: UITableViewController {
     fileprivate func setupNavigationItems() {
         navigationItem.title = "Home"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(handleOpen))
+        
+        // Make left bar button as a button view
+        let buttonView = UIButton(type: .system)
+        buttonView.setImage(#imageLiteral(resourceName: "rocket").withRenderingMode(.alwaysOriginal), for: .normal)
+        buttonView.imageView?.contentMode = .scaleAspectFit
+        
+        // Sizing configs
+        buttonView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        buttonView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        // Rounded corner
+        buttonView.layer.cornerRadius = 20
+        buttonView.clipsToBounds = true
+        
+        buttonView.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
+        let leftBarButton = UIBarButtonItem(customView: buttonView)
+        navigationItem.leftBarButtonItem = leftBarButton
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(handleHide))
     }
 }
