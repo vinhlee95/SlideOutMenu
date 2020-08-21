@@ -13,16 +13,21 @@ class ChatroomMenuContainer: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = #colorLiteral(red: 0.2980392157, green: 0.2078431373, blue: 0.2862745098, alpha: 1)
         setupViews()
     }
     
     fileprivate func setupViews() {
-        let searchView = SearchController().view!
+        let searchContainer = SearchContainerController()
+        let searchView = searchContainer.view!
         view.addSubview(searchView)
-        searchView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 150))
+        searchView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
+        searchView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64).isActive = true
         
         let chatroomMenuView = chatroomMenuViewController.view!
         view.addSubview(chatroomMenuView)
-        chatroomMenuView.anchor(top: searchView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        chatroomMenuView.anchor(top: searchView.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        
+        searchContainer.textField.delegate = chatroomMenuViewController
     }
 }

@@ -8,9 +8,20 @@
 
 import UIKit
 
-class SearchController: UIViewController {
+class SearchContainerController: UIViewController {
+    let searchBar: UISearchBar = {
+        let sb = UISearchBar()
+        sb.searchBarStyle = .minimal
+        return sb
+    }()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        view.backgroundColor = #colorLiteral(red: 0.2703397038, green: 0.1764705882, blue: 0.2299149024, alpha: 1)
+        
+        view.addSubview(searchBar)
+        searchBar.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
 }

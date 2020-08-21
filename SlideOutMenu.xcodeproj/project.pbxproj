@@ -19,7 +19,7 @@
 		1B908A6824EA272000DD69DA /* ChatRoomMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B908A6724EA271F00DD69DA /* ChatRoomMenuController.swift */; };
 		1B908A6A24EB8B3100DD69DA /* ChatroomMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B908A6924EB8B3000DD69DA /* ChatroomMenuCell.swift */; };
 		1B908A6D24ED8E6B00DD69DA /* ChatroomMenuContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B908A6C24ED8E6B00DD69DA /* ChatroomMenuContainer.swift */; };
-		1B908A6F24ED908700DD69DA /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B908A6E24ED908700DD69DA /* SearchController.swift */; };
+		1B908A6F24ED908700DD69DA /* SearchContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B908A6E24ED908700DD69DA /* SearchContainerController.swift */; };
 		1BB7704524E649A7005022BC /* MomentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB7704424E649A7005022BC /* MomentViewController.swift */; };
 		1BF369BD24C69EF700C7AC12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF369BC24C69EF700C7AC12 /* AppDelegate.swift */; };
 		1BF369BF24C69EF700C7AC12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF369BE24C69EF700C7AC12 /* SceneDelegate.swift */; };
@@ -41,7 +41,7 @@
 		1B908A6724EA271F00DD69DA /* ChatRoomMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMenuController.swift; sourceTree = "<group>"; };
 		1B908A6924EB8B3000DD69DA /* ChatroomMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomMenuCell.swift; sourceTree = "<group>"; };
 		1B908A6C24ED8E6B00DD69DA /* ChatroomMenuContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomMenuContainer.swift; sourceTree = "<group>"; };
-		1B908A6E24ED908700DD69DA /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		1B908A6E24ED908700DD69DA /* SearchContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContainerController.swift; sourceTree = "<group>"; };
 		1BB7704424E649A7005022BC /* MomentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentViewController.swift; sourceTree = "<group>"; };
 		1BF369B924C69EF700C7AC12 /* SlideOutMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideOutMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF369BC24C69EF700C7AC12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 			children = (
 				1B908A6724EA271F00DD69DA /* ChatRoomMenuController.swift */,
 				1B908A6C24ED8E6B00DD69DA /* ChatroomMenuContainer.swift */,
-				1B908A6E24ED908700DD69DA /* SearchController.swift */,
+				1B908A6E24ED908700DD69DA /* SearchContainerController.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -226,7 +226,7 @@
 				1B908A6824EA272000DD69DA /* ChatRoomMenuController.swift in Sources */,
 				1B66F41D24E3918E00393E1D /* ListViewController.swift in Sources */,
 				1B039A0024D8F6320051A66B /* SpacerView.swift in Sources */,
-				1B908A6F24ED908700DD69DA /* SearchController.swift in Sources */,
+				1B908A6F24ED908700DD69DA /* SearchContainerController.swift in Sources */,
 				1B0399FE24D8EFB50051A66B /* MenuHeaderView.swift in Sources */,
 				1B908A6D24ED8E6B00DD69DA /* ChatroomMenuContainer.swift in Sources */,
 				1B039A0224DA41000051A66B /* ProfileImageView.swift in Sources */,

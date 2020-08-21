@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatRoomMenuController: UITableViewController {
+class ChatRoomMenuController: UITableViewController, UISearchBarDelegate {
     private let cellId = "cellId"
     private let data = [
         ["generals", "introductions"],
@@ -56,5 +56,11 @@ class ChatRoomMenuController: UITableViewController {
         cell.textLabel?.appendAttributedText(firstText: firstText, secondText: secondText)
         cell.backgroundColor = .clear
         return cell
+    }
+}
+
+extension ChatRoomMenuController {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
     }
 }
